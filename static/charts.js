@@ -72,11 +72,11 @@ $(document).ready(function(){
     renderChart(age_survived, age_died, age_labels, age_chart, 'bar');
 
     // render religion analysis
-    let age_chart = "maritalstatus"
-    let age_survived = [426, 6700, 3320, 10, 2];
-    let age_died = [99, 1568, 873, 2, 0];
-    let age_labels =  ["Divorced", "Married", "Single", "Widow", "In a Relationship"];
-    renderChart(age_survived, age_died, age_labels, age_chart, 'bar');
+    let marital_chart = "maritalstatus"
+    let marital_layak = [426, 6700, 3320, 10, 2];
+    let marital_taklayak = [99, 1568, 873, 2, 0];
+    let marital_labels =  ["Divorced", "Married", "Single", "Widow", "In a Relationship"];
+    renderChart(marital_layak, marital_taklayak, marital_labels, marital_chart, 'bar');
 
     // render title analysis
     let title_chart = "title"
