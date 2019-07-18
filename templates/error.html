@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+	<!-- Start of main form -->
+	<form action="/" method="POST">
+
+		<!-- Display error message -->
+		<div class="container" id="one">
+			<div class="jumbotron">
+				<h3 class="questions"> {{ title }}</h3>
+				<p class="lead"> {{ message }}</p>
+				<button class="btn btn-lg btn-primary nextBtns" id="refresh" type="button">OK &raquo;</button>
+			</div>
+		</div>
+
+	</form>
+
+	
+
+	<script>
+	    $("#refresh").click(function() {
+            window.location.href = "/";
+	    });
+	</script>
+
+{% endblock %}

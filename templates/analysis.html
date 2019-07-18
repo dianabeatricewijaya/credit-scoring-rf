@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- Loading Screen GIF -->
+	<div class="container" id="loading">
+		<div class="jumbotron">
+			<img alt="loading screen" src="{{url_for('static', filename='loading.gif')}}">
+		</div>
+    </div>
+
+    <!-- Gender analysis -->
+    <div class="container" id="one" style="display: none">
+        <div class="jumbotron">
+            <h3 class="questions">Pria dan Wanita</h3>
+            <p class="lead">Kemungkinan wanita layak lebih besar dibanding pria  
+                  <button class="btn btn-sm btn-primary continue" id="nextOne" type="button">Berikut &raquo;</button>
+            </p>
+            <div class="chart-container">
+                <canvas id="gender"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pclass analysis -->
+    <div class="container" id="two" style="display: none">
+        <div class="jumbotron">
+            <h3 class="questions">Pendidikan Calon Peminjam</h3>
+            <p class="lead">Calon peminjam yang memiliki pendidikan terakhir SMA memiliki kemungkinan layak meminjam lebih besar
+                <button class="btn btn-sm btn-primary continue" id="nextTwo" type="button">Berikut &raquo;</button>
+            </p>
+            <div class="chart-container">
+                <canvas id="pendidikan"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Age analysis -->
+    <div class="container" id="three" style="display: none">
+        <div class="jumbotron">
+            <h3 class="questions">Umur</h3>
+            <p class="lead">Umur 26 - 35 tahun memiliki kemungkinan kelayakan lebih besar
+                    <button class="btn btn-sm btn-primary continue" id="nextThree" type="button">Berikut &raquo;</button>
+            </p>
+            <div class="chart-container">
+                <canvas id="age"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Family analysis -->
+    <div class="container" id="four" style="display: none">
+        <div class="jumbotron">
+            <h3 class="questions">Status pernikahan calon peminjam</h3>
+            <p class="lead">
+                    <button class="btn btn-sm btn-primary continue" id="nextFour" type="button">Berikut &raquo;</button>
+            </p>
+            <div class="chart-container">
+                <canvas id="maritalstatus"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Title analysis -->
+    <div class="container" id="five" style="display: none">
+        <div class="jumbotron">
+            <h3 class="questions">Bidang Pekerjaan</h3>
+            <p class="lead">
+                    <button class="btn btn-sm btn-primary continue" id="nextFive" type="button">Berikut &raquo;</button>
+            </p>
+            <div class="chart-container">
+                <canvas id="title"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary and Next Steps -->
+    <div class="container" id="six" style="display: none">
+        <div class="jumbotron">
+            <h3 class="questions">Terimakasih!</h3>
+            <p class="lead">Terimakasih sudah menggunakan aplikasi ini</p>
+            <button class="btn btn-lg btn-primary" id="finalSubmit" type="button">Coba lagi &raquo;</button>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <!-- Loading Screen GIF -->
+	<div class="container" id="loading">
+		<div class="jumbotron">
+			<img alt="loading screen" src="{{url_for('static', filename='loading.gif')}}">
+		</div>
+    </div>
+
+    <!-- Results -->
+    <div class="container" id="one" style="display: none">
+        <div class="jumbotron">
+            <h3 class="questions">Calon Peminjam dinyatakan : {{ message }}</h3>
+            <p class="lead">Berdasarkan karakteristik calon peminjam, dinyatakan {{ message }}. Probabilitas {{ message }} yang terprediksi sebesar {{ survival_proba | round(2) }}%</p>
+            <div class="progressBarModal">
+                <div class="progress">
+                  <div class="progress-bar progress-bar massive-font" role="progressbar" aria-valuenow="{{ survival_proba | round(2)}}" aria-valuemin="0" aria-valuemax="100" style="width:{{ survival_proba | round(2) }}%">
+                    {{ survival_proba | round(2) }}%
+                  </div>
+                </div>
+                <button class="btn btn-lg btn-primary" id="nextExplain" type="button">Jelaskan Hasil &raquo;</button>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

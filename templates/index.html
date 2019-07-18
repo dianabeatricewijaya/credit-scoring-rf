@@ -1,0 +1,499 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+	<!-- Loading Screen GIF -->
+	<div class="container" id="loading">
+		<div class="jumbotron">
+			<img alt="loading screen" src="{{url_for('static', filename='loading.gif')}}">
+		</div>
+    </div>
+
+	<!-- Start of main form -->
+	<form action="/" method="POST">
+
+		<!-- Introduction -->
+		<div class="container" id="one" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Cek Kelayakan Calon Peminjam</h3>
+				<p class="lead">Aplikasi ini menggunakan Machine Learning untuk menentukan kemungkinan calon peminjam dianggap layak atau tidak layak untuk meminjam dana dengan algoritma keputusan berdasarkan input dan dataset dari PT. XYZ</p>
+				<button class="btn btn-lg btn-primary nextBtns" id="nextOne" type="button">Mulai &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Agama -->
+		<div class="container" id="two" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan Agama Calon Peminjam</h3>
+				<div class="form-group input-group-lg">
+					<select name="agama" class="custom-select">
+						<option value="" disabled selected>Buka menu pilihan ini</option>
+						<option value="1">Islam</option>
+						<option value="2">Christianity</option>
+						<option value="3">Catholic</option>
+						<option value="4">Buddhism</option>
+						<option value="5">Hinduism</option>
+						<option value="6">Other</option>
+					</select>
+					<small class="warning" id="agamaWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" id="nextTwo" type="button">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Requested Principal -->
+		<div class="container" id="three" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan jumlah uang yang ingin dipinjam</h3>
+				<div class="form-group input-group-lg">
+					<input type="number" id="req_principal" name="req_principal" class="form-control" autocomplete="off" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan masukan jumlah uang.
+					</small>
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Jumlah uang diantara 1.000.000 dan 10.000.000
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextThree">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Period Count -->
+		<div class="container" id="four" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Berapa hari periode pengembalian yang diinginkan peminjam ? (hari)</h3>
+				<div class="form-group input-group-lg">
+					<input type="number" id="period" name="period" class="form-control" autocomplete="off" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan masukan periode pengembalian.
+					</small>
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Nilai antara 1 and 30 hari.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextFour">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Gender -->
+		<div class="container" id="five" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan Jenis Kelamin calon peminjam</h3>
+				<div class="form-group input-group-lg">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="maleRadio" name="gender" value="2">
+						<label class="custom-control-label" for="maleRadio">Male</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="femaleRadio" name="gender" value="1">
+						<label class="custom-control-label" for="femaleRadio">Female</label>
+					</div>
+					<small class="warning" id="genderWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Back</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextFive">Next &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Pendidikan Terakhir -->
+		<div class="container" id="six" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan Pendidikan terakhir calon peminjam</h3>
+				<div class="form-group input-group-lg">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="firstClass" name="grad" value="1">
+						<label class="custom-control-label" for="firstClass">Bachelors/Masters/Doctors</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="secondClass" name="grad" value="3">
+						<label class="custom-control-label" for="secondClass">Diploma</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="thirdClass" name="grad" value="2">
+						<label class="custom-control-label" for="thirdClass">High School</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="fourthClass" name="grad" value="4">
+						<label class="custom-control-label" for="fourthClass">Middle School</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="fifthClass" name="grad" value="5">
+						<label class="custom-control-label" for="fifthClass">Primary School</label>
+					</div>
+					<small class="warning" id="classWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextSix">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Lama Bekerja -->
+		<div class="container" id="seven" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Berapa lama calon peminjam bekerja di kantornya? (tahun)</h3>
+				<div class="form-group input-group-lg">
+					<input type="number" id="length_emp" name="length_emp" class="form-control" autocomplete="off" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan masukan tahun lama bekerja.
+					</small>
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Nilai antara 1-6.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextSeven">Berikut &raquo;</button>
+			</div>
+		</div>
+		
+		<!-- Reference Gender -->
+		<div class="container" id="eight" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan jenis kelamin yang direferensikan calon peminjam</h3>
+				<div class="form-group input-group-lg">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="RmaleRadio" name="genderRef" value="2">
+						<label class="custom-control-label" for="RmaleRadio">Male</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="RfemaleRadio" name="genderRef" value="1">
+						<label class="custom-control-label" for="RfemaleRadio">Female</label>
+					</div>
+					<small class="warning" id="genderRefWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextEight">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Monthly Gross Salary -->
+		<div class="container" id="nine" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan jumlah Gaji Kotor (Gross Salary) perbulan calon peminjam</h3>
+				<div class="form-group input-group-lg">
+					<input type="number" id="gross_sal" name="gross_sal" class="form-control" autocomplete="off" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan masukan jumlah uang.
+					</small>
+					<small class="warning" style="display:none">
+						<i class="fa fa-warning"></i> Jumlah uang diantara 1.000.000 dan 100.000.000
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextNine">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Residence -->
+		<div class="container" id="ten" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan kepemilikan rumah yang ditempati calon peminjam</h3>
+				<div class="form-group input-group-lg">
+					<select name="residence" class="custom-select">
+						<option value="" disabled selected>Buka pilihan berikut</option>
+						<option value="4">Company Owned</option>
+						<option value="2">Family Owned</option>
+						<option value="5">Other</option>
+						<option value="1">Own Property</option>
+						<option value="3">Rent</option>
+					</select>
+					<small class="warning" id="residenceWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" id="nextTen" type="button">Berikut &raquo;</button>
+			</div>
+		</div>
+
+
+		<!-- Marital Status -->
+		<div class="container" id="eleven" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan status pernikahan calon peminjam</h3>
+				<div class="form-group input-group-lg">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="married" name="marital" value="2">
+						<label class="custom-control-label" for="married">Married</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Single" name="marital" value="3">
+						<label class="custom-control-label" for="Single">Single</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Divorced" name="marital" value="1">
+						<label class="custom-control-label" for="Divorced">Divorced</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Widow" name="marital" value="4">
+						<label class="custom-control-label" for="Widow">Widow</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="relationship" name="marital" value="5">
+						<label class="custom-control-label" for="relationship">In a Relationship</label>
+					</div>
+					<small class="warning" id="maritalWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextEleven">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Anak -->
+		<div class="container" id="twelve" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Berapa jumlah anak yang dimiliki calon peminjam?</h3>
+				<div class="form-group input-group-lg">
+					<div class="form-group input-group-lg">
+						<input type="number" id="inputFamily" name="family" value="0" class="form-control" autocomplete="off" min="0" max="8" onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
+					</div>
+					<small class="warning" id="familyWarning" style="display:none">
+						<i class="fa fa-warning"></i> Masukan jumlah anak calon peminjam
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="button" id="nextTwelve">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		
+		<!-- App Client Age -->
+		<div class="container" id="thirteen" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan umur calon peminjam!</h3>
+				<div class="form-group input-group-lg">
+					<select name="age" class="custom-select">
+						<option value="" disabled selected>Buka pilihan menu berikut</option>
+						<option value="4">17 - 25 tahun</option>
+						<option value="3">26 - 35 tahun</option>
+						<option value="2">36 - 45 tahun</option>
+						<option value="1">46 - 55 tahun</option>
+					</select>
+					<small class="warning" id="ageWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" id="nextThirteen" type="button">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Line of Business -->
+		<div class="container" id="fourteen" style="display: none; height:800px !important;">
+			<div class="jumbotron">
+				<h3 class="questions">Masukan bidang pekerjaan calon peminjam!</h3>
+				<div class="form-group input-group-lg">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Banking" name="business" value="1">
+						<label class="custom-control-label" for="Banking">Banking</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Building" name="business" value="2">
+						<label class="custom-control-label" for="Building">Building/Construction</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Consumer" name="business" value="3">
+						<label class="custom-control-label" for="Consumer">Consumer Goods</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Education" name="business" value="4">
+						<label class="custom-control-label" for="Education">Education</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Engineering" name="business" value="5">
+						<label class="custom-control-label" for="Engineering">Engineering</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Fashion" name="business" value="6">
+						<label class="custom-control-label" for="Fashion">Fashion / Body Care</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Government" name="business" value="7">
+						<label class="custom-control-label" for="Government">Government</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Healthcare" name="business" value="8">
+						<label class="custom-control-label" for="Healthcare">Healthcare</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Human" name="business" value="9">
+						<label class="custom-control-label" for="Human">Human Resources</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="IT" name="business" value="10">
+						<label class="custom-control-label" for="IT">IT</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Law" name="business" value="11">
+						<label class="custom-control-label" for="Law">Law</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Manufactory" name="business" value="12">
+						<label class="custom-control-label" for="Manufactory">Manufactory</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Mining" name="business" value="14">
+						<label class="custom-control-label" for="Mining">Mining</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Plantation" name="business" value="16">
+						<label class="custom-control-label" for="Plantation">Plantation</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Property" name="business" value="17">
+						<label class="custom-control-label" for="Property">Property</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Sales" name="business" value="18">
+						<label class="custom-control-label" for="Sales">Sales Marketing</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Services" name="business" value="19">
+						<label class="custom-control-label" for="Services">Services</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Tax" name="business" value="20">
+						<label class="custom-control-label" for="Tax">Tax</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Telecommunication" name="business" value="21">
+						<label class="custom-control-label" for="Telecommunication">Telecommunication</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Tourism" name="business" value="22">
+						<label class="custom-control-label" for="Tourism">Tourism</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Trading" name="business" value="23">
+						<label class="custom-control-label" for="Trading">Trading</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Transportation" name="business" value="24">
+						<label class="custom-control-label" for="Transportation">Transportation</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Other" name="business" value="15">
+						<label class="custom-control-label" for="Other">Other</label>
+					</div>
+					<small class="warning" id="businessWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" id="nextFourteen" type="button">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Ref Relationship -->
+		<div class="container" id="fiveteen" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Apa hubungan calon peminjam dengan orang yang direferensikan?</h3>
+				<div class="form-group input-group-lg">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Aunt" name="ref_rel" value="1">
+						<label class="custom-control-label" for="Aunt">Aunt / Uncle / Cousin</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Brother" name="ref_rel" value="3">
+						<label class="custom-control-label" for="Brother">Brother</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Child" name="ref_rel" value="4">
+						<label class="custom-control-label" for="Child">Child</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Friend" name="ref_rel" value="5">
+						<label class="custom-control-label" for="Friend">Friend</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Parents" name="ref_rel" value="8">
+						<label class="custom-control-label" for="Parents">Parents</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Sibling" name="ref_rel" value="2">
+						<label class="custom-control-label" for="Sibling">Sibling</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Sister" name="ref_rel" value="6">
+						<label class="custom-control-label" for="Sister">Sister</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Spouse" name="ref_rel" value="7">
+						<label class="custom-control-label" for="Spouse">Spouse</label>
+					</div>
+					<small class="warning" id="ref_relWarning" style="display:none">
+						<i class="fa fa-warning"></i> Silakan pilih salah satu dari pilihan berikut.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" id="nextFiveteen" type="button">Berikut &raquo;</button>
+			</div>
+		</div>
+
+		<!-- Status kerja -->
+		<div class="container" id="sixteen" style="display: none">
+			<div class="jumbotron">
+				<h3 class="questions">Status kerja calon peminjam</h3>
+				<div class="form-group input-group-lg">
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Permanent" name="job" value="1">
+						<label class="custom-control-label" for="Permanent">Permanent</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="Contract" name="job" value="2">
+						<label class="custom-control-label" for="Contract">Contract</label>
+					</div>
+					<div class="custom-control custom-radio">
+						<input type="radio" class="custom-control-input input-lg" id="PartTime" name="job" value="3">
+						<label class="custom-control-label" for="PartTime">Part Time</label>
+					</div>
+					<small class="warning" id="jobWarning" style="display:none">
+						<i class="fa fa-warning"></i> Please select from the options above.
+					</small>
+				</div>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" id="nextSixteen" type="button">Berikut &raquo;</button>
+			</div>
+		</div>
+
+
+		<!-- Confirmation -->
+		<div class="container" id="seventeen" style="display: none; ">
+			<div class="jumbotron" style="height: 1000px;">
+				<h3 class="questions">Konfirmasi</h3>
+				<p id="confirmAgama" class="lead">Agama calon peminjam adalah  </p>
+				<p id="confirmPrincipal" class="lead">Jumlah uang yang ingin dipinjam adalah </p>
+				<p id="confirmPeriod" class="lead">Lama peminjam mengembalikan uang adalah </p>
+				<p id="confirmSex" class="lead">Jenis kelamin peminjam adalah </p>
+				<p id="confirmClass" class="lead">Pendidikan terakhir peminjam adalah  </p>
+				<p id="confirmKerja" class="lead">Lama peminjam bekerja di perusahaannya saat ini adalah</p>
+				<p id="confirmRefGender" class="lead">Jenis kelamin referensi peminjam adalah </p>
+				<p id="confirmGaji" class="lead">Gaji (Gross) Peminjam adalah  </p>
+				<p id="confirmResidence" class="lead">Status kepemilikan tempat tinggal adalah </p>
+				<p id="confirmMarital" class="lead">Status Peminjam adalah </p>
+				<p id="confirmAnak" class="lead">Jumlah anak calon peminjam adalah </p>
+				<p id="confirmEmpStat" class="lead">Status pekerjaan calon peminjam adalah </p>
+				<p id="confirmBusiness" class="lead">Bidang pekerjaan calon peminjam adalah </p>
+				<p id="confirmRefRel" class="lead">Hubungan calon peminjam dengan referensi adalah </p>
+				<p id="confirmAge" class="lead">Umur Peminjam : </p>
+				<button class="btn btn-lg btn-primary backBtns" type="button">Kembali</button>
+				<button class="btn btn-lg btn-primary nextBtns" type="submit" id="submit">Proses Data</button>
+			</div>
+		</div>
+
+	</form>
+
+{% endblock %}

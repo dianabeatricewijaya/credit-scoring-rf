@@ -1,0 +1,140 @@
+/* Main section styling */
+
+.bg-custom {
+	background-color: #0B0C0C;
+	color: white;
+	font-weight: bold;
+	height: 45px;
+}
+
+/* Thin blue strip */
+#underpanel {
+	height: 1px;
+	background-color: #005EA5;
+	margin-top: -110px;
+	position: relative;
+	z-index: -1;
+}
+
+/* Main section panels */
+.jumbotron {
+	height: 1000px;
+	background-color: #005EA5;
+	margin-top: 25px;
+	color: white;
+}
+
+/* Loading image */
+.jumbotron img{
+	display:block;
+	margin-top:auto;
+	margin-bottom:auto;
+	margin-left:auto;
+	margin-right:auto;
+	max-height: 400px;
+}
+
+/* Charts box */
+.chart-container {
+	height: 90%;
+	width: 100%;
+	margin-bottom: -50px;
+}
+
+.continue {
+	margin-left: 25px;
+}
+
+
+
+/* Radio labels styling */
+label {
+	font-size: 1.25rem;
+	font-weight: 300;
+}
+
+label:hover {
+	cursor: pointer;
+}
+
+.questions {
+	margin-top: -20px;
+	margin-bottom: 20px;
+}
+
+/* Warning messages */
+.warning {
+	color: white;
+	font-size: 100%;
+	margin-top: 5px;
+}
+
+/* Results % bar */
+.massive-font{
+	font-size: 30px;
+	text-align: center;
+	}
+	  
+.progress{
+	height:50px;
+	text-align:center;
+}
+
+.progress-bar {
+	padding:15px;
+}
+
+#nextExplain {
+	margin-top: 30px;
+}
+
+/* Links styling */
+a:active {
+	background-color: orange;
+	color: black;
+}
+
+#aFinal {
+	color: orange;
+}
+
+#aFinal:active {
+	background-color: orange;
+	color: black;
+}
+
+/* Tablets */
+@media only screen and (max-width: 800px) {
+	.jumbotron {
+		margin-top: 10px;
+
+	}
+
+	.jumbotron img{
+		max-width: 325px;
+	}
+
+	.chart-container {
+		height: 80%;
+	}
+
+}
+
+/* Phones */
+@media only screen and (max-width: 580px) {
+	#underpanel {
+		margin-top: -50px;
+	}
+
+	.jumbotron {
+		height: 750px;
+	}
+
+	.jumbotron img {
+		max-width: 250px;
+	}
+
+	.chart-container {
+		height: 80%;
+	}
+}
