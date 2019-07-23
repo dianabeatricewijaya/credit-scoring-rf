@@ -66,26 +66,18 @@ $(document).ready(function(){
 
     // render age analysis
     let age_chart = "age"
-    let age_survived = [1959, 5190, 2729, 580];
-    let age_died = [578, 1319, 560, 85];
+    let age_layak = [1959, 5190, 2729, 580];
+    let age_taklayak = [578, 1319, 560, 85];
     let age_labels =  ["17 - 25 tahun", "26 - 35 tahun", "36 - 45 tahun", "46 - 55 tahun"];
-    renderChart(age_survived, age_died, age_labels, age_chart, 'bar');
+    renderChart(age_layak, age_taklayak, age_labels, age_chart, 'bar');
 
-    // render religion analysis
-    let marital_chart = "maritalstatus"
-    let marital_layak = [426, 6700, 3320, 10, 2];
-    let marital_taklayak = [99, 1568, 873, 2, 0];
-    let marital_labels =  ["Divorced", "Married", "Single", "Widow", "In a Relationship"];
-    renderChart(marital_layak, marital_taklayak, marital_labels, marital_chart, 'bar');
+    // render status pernikahan analysis
+    let maritalstatus_chart = "maritalstatus"
+    let maritalstatus_layak = [426, 6700, 3320, 10, 2];
+    let maritalstatus_taklayak = [99, 1568, 873, 2, 0];
+    let maritalstatus_labels =  ["Divorced", "Married", "Single", "Widow", "In a Relationship"];
+    renderChart(maritalstatus_layak, maritalstatus_taklayak, maritalstatus_labels, maritalstatus_chart, 'bar');
 
-    // render title analysis
-    let title_chart = "title"
-    let title_survived = [670, 2, 0, 515, 2, 1, 207, 1, 0, 354, 1287, 42, 444,  5, 1693, 17, 195, 379, 2472, 415, 1753];
-    let title_died      = [103, 0, 1, 90, 0, 0, 45, 0, 0, 83, 430, 7,130,  3, 395, 1, 54, 70, 597,116, 417];
-    let title_labels =  ["Banking", "Building/Construction", "Consumer Goods", "Education", "Engineering", "Fashion / Body Care", "Government", "Healthcare", "Human Resources", "IT", "Law", "Manufactory", "Mining", "Plantation", "Property", "Sales Marketing", "Services", "Tax", "Telecommunication","Tourism", "Trading", "Transportation", "Other"];
-    renderChart(title_survived, title_died, title_labels, title_chart, 'line');
-
-    
     $("#nextOne").click(function() {
         $('#one').css("display", "none");	
         $('#two').css("display", "block");	
@@ -95,7 +87,6 @@ $(document).ready(function(){
         $('#two').css("display", "none");	
         $('#three').css("display", "block");	
     });
-
 
     $("#nextThree").click(function() {
         $('#three').css("display", "none");	
@@ -111,8 +102,6 @@ $(document).ready(function(){
         $('#five').css("display", "none");	
         $('#six').css("display", "block");	
     });
-
-
 
     // redirect to beginning
 	$("#finalSubmit").click(function() {
